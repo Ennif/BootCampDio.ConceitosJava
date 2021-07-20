@@ -11,13 +11,13 @@ public class Main {
         minhaFila.enqueue(new No("Quarto Nó"));
 
 
-        System.out.println(minhaFila.dequeue());
+
         System.out.println(minhaFila);
 
         minhaFila.enqueue(new No("ultimo"));
 
         System.out.println(minhaFila);
-        System.out.println(minhaFila.first());
+
 
 
 
