@@ -2,21 +2,21 @@ package com.projeto.Filas;
 
 import java.sql.Ref;
 
-public class Fila {
+public class Fila<T> {
 
-    private No RefNoEntradaFila;
+    private No<T> RefNoEntradaFila;
 
     public Fila() {
         this.RefNoEntradaFila = null;
     }
 
-    public void enqueue(Object obj){
+    public void enqueue(T obj){
         No novoNo = new No(obj);
         novoNo.setRefNo(RefNoEntradaFila);
         RefNoEntradaFila = novoNo;
     }
 
-    public  Object first(){
+    public T first(){
         if(!this.isEmpty()) {
             No PrimeiroNo= RefNoEntradaFila;
             while(true){
@@ -28,12 +28,12 @@ public class Fila {
                 }
 
             }
-            return PrimeiroNo.getObject();
+            return (T) PrimeiroNo.getObject();
         }
         return null;
     }
 
-    public Object dequeue(){
+    public T dequeue(){
         if(!this.isEmpty()) {
             No PrimeiroNo= RefNoEntradaFila;
             No noAuxiliar= RefNoEntradaFila;
@@ -50,7 +50,7 @@ public class Fila {
 
             }
 
-            return PrimeiroNo.getObject();
+            return (T) PrimeiroNo.getObject();
         }
 
         return null;
