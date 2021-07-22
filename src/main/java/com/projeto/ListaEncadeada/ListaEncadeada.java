@@ -8,6 +8,54 @@ public class ListaEncadeada<T> {
         this.referenciaEntrada = null;
     }
 
+    public void add(T conteudo){
+        No<T> novoNo = new No<>(conteudo);
+        if (this.isEmpty()){
+            referenciaEntrada = novoNo;
+            return;
+        }
+
+        No<T> noAuxiliar = referenciaEntrada;
+        for( int i = 0; i< this.size()-1; i++){
+            noAuxiliar = noAuxiliar.getProximoNo();
+        }
+
+        noAuxiliar.setProximoNo(novoNo);
+    }
+
+    private No <T> getNo(int index){
+
+        validadeIndice(index);
+
+        No<T> noAuxiliar = referenciaEntrada;
+        No<T> noRetorno = null;
+
+            for( int i = 0; i< this.size()-1; i++){
+                noRetorno = noAuxiliar;
+                noAuxiliar = noAuxiliar.getProximoNo();
+             }
+
+            return  noRetorno;
+    }
+
+    public T remove(int index){
+        No<T> noPivor = this.getNo(index);
+        if(index == 0){
+            referenciaEntrada = noPivor.getProximoNo();
+            return noPivor.getConteudo();
+        }
+
+        No<T> noAnterior = getNo(index - 1);
+        noAnterior.setProximoNo(noPivor.getProximoNo());
+        return noPivor.getConteudo();
+    }
+
+
+    public T get(int index){
+        return getNo(index).getConteudo();
+    }
+
+
     public int size(){
         int tamanhoLista = 0;
         No<T> refenciaAux = referenciaEntrada;
@@ -26,6 +74,13 @@ public class ListaEncadeada<T> {
         }
         return  tamanhoLista;
 
+    }
+
+    public void validadeIndice(int index){
+        if (index >= size()){
+            int UltimoIndice = size() -1 ;
+            throw  new IndexOutOfBoundsException("Não Existe conteúdo no indice " + index +" Desta Lista lita até" + UltimoIndice+";");
+        }
     }
 
     public boolean isEmpty(){
