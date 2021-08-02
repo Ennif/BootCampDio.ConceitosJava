@@ -68,8 +68,80 @@ public class ArvoreBinaria<T extends Comparable<T>>{
         }
     }
 
-
     //REMOVE
+    public void remove(T conteudo){
+        try{
+            BinNO<T> atual = this.raiz;
+            BinNO<T> pai = this.raiz;
+            BinNO<T> filho = null;
+            BinNO<T> temp = null;
+
+            while (atual != null && !atual.getConteudo().equals(conteudo)){
+                pai = atual;
+                if(conteudo.compareTo(atual.getConteudo()) < 0){
+                    atual = atual.getNoEsq();
+                }else{
+                    atual = atual.getNoDir();
+                }
+            }
+            if (atual == null){
+                System.out.println("Erro Vazio. |Try|");
+            }
+
+            if (pai == null){
+                if (atual.getNoDir() == null){
+                    this.raiz = atual.getNoEsq();
+                }else if(atual.getNoEsq() == null){
+                    this.raiz = atual.getNoDir();
+                }else{
+                    for (temp = atual, filho = atual.getNoEsq();
+                        filho.getNoDir() != null;
+                        temp = filho, filho=filho.getNoEsq()
+                    ){
+                        if(filho != atual.getNoEsq()){
+                            temp.setNoDir(filho.getNoEsq());
+                            filho.setNoEsq(raiz.getNoEsq());
+                        }
+                    }
+                    filho.setNoDir(raiz.getNoDir());
+                    raiz= filho;
+                }
+
+            }else if(atual.getNoDir() == null){
+                if(pai.getNoEsq() == atual) {
+                    pai.setNoEsq(atual.getNoEsq());
+                }else {
+                    pai.setNoDir(atual.getNoEsq());
+                }
+            }else if(atual.getNoEsq() == null){
+                if(pai.getNoEsq() == atual) {
+                    pai.setNoEsq(atual.getNoDir());
+                }else {
+                    pai.setNoDir(atual.getNoDir());
+                }
+            }else{
+                for (
+                        temp = atual, filho = atual.getNoEsq();
+                        filho.getNoDir() != null;
+                        temp = filho, filho = filho.getNoDir()
+                ){
+                    if(filho != atual.getNoEsq()){
+                        temp.setNoDir(filho.getNoEsq());
+                        filho.setNoEsq(atual.getNoEsq());
+                    }
+                    filho.setNoDir(atual.getNoDir());
+                    if (pai.getNoEsq() == atual){
+                        pai.setNoEsq(filho);
+                    }else{
+                        pai.setNoDir(filho);
+                    }
+                }
+            }
+
+        }catch (NullPointerException erro) {
+            System.out.println("Erro Vazio. |Catch|");
+        }
+    }
 
 
 
