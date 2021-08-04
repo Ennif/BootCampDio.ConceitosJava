@@ -37,7 +37,7 @@ public class Carro implements Comparable<Carro> {
                 "marca='" + marca + '\'' +
                 '}';
     }
-
+   /*
     @Override
     public int compareTo(Carro o) {
 
@@ -47,5 +47,10 @@ public class Carro implements Comparable<Carro> {
             return 1;
         }
         return 0;
-    }
+    }*/
+   @Override
+   public int compareTo(Carro o){
+       return this.getMarca().compareTo(o.marca);
+   }
+
 }
